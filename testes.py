@@ -13,9 +13,12 @@ def restaurar(ficheiro, conteudo):
 
 class Test(unittest.TestCase):
     def setUp(self):
+        """ guardar o estado dos 3 ficheiros"""
         self.dicionario = guardar('DICIONARIO')
         self.perfis = guardar('PERFIS')
         self.highscores = guardar('HIGHSCORES')
+
+        """Criar os 3 ficheiros com valores por omissão"""
         restaurar('PERFIS', """admin:Administrador:dc24df8119fadb637178d5e959887ce3
 """)
         restaurar('DICIONARIO', """abomasnow
@@ -42,6 +45,8 @@ aerodactyl
         criar_utilizador('rcm', 'Rui Mendes', 'tubarao epiletico')
         with open('PERFIS') as F:
             linhas = F.readlines()
+
+        print(linhas)
         ult_linha = linhas[-1]
         self.assertEqual(ult_linha, f"rcm:Rui Mendes:{encriptar('tubarao epiletico')}\n")
 
