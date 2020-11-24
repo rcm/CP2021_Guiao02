@@ -2,6 +2,7 @@ import unittest
 
 from perfis import *
 from dicionario import *
+from highscores import *
 
 def guardar(ficheiro):
     with open(ficheiro) as F:
@@ -24,7 +25,7 @@ accelgor
 aegislash
 aerodactyl
 """)
-        
+        restaurar('HIGHSCORES', "")
     def tearDown(self):
         restaurar('DICIONARIO', self.dicionario)
         restaurar('PERFIS', self.perfis)
@@ -39,7 +40,6 @@ aerodactyl
         self.assertTrue(tem_password(perfis, 'rcm','tubarao epiletico'))        
     def test_criar_utilizador(self):
         criar_utilizador('rcm', 'Rui Mendes', 'tubarao epiletico')
-        perfis = ler_perfis()
         with open('PERFIS') as F:
             linhas = F.readlines()
         ult_linha = linhas[-1]
@@ -58,5 +58,11 @@ aerodactyl
         for palavra in outras:
             self.assertFalse(tem_palavra(palavra))
 
+    def test_highscore(self):
+        adiciona_score('rcm', 40)
+        adiciona_score('rcm', 50)
+        adiciona_score('rcm', 20)
+        self.assertEqual(ler_highscores(), [(50, 'rcm'),(40, 'rcm'),(20, 'rcm')])
+        
 if __name__ == '__main__':
     unittest.main()
