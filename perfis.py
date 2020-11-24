@@ -46,7 +46,15 @@ def criar_utilizador(id, nome, password):
 
 def autenticacao():
     """Faz o procedimento de autenticação"""
-    pass
+    perfis = ler_perfis()
+    while True:
+        id = input('Identificador: ')
+        pwd = input('Password: ')
+        if tem_password(perfis, id, pwd):
+            return id
+        else:
+            print('\nAutenticação errada!\n')
+    
 
 def ler_perfis():
     perfis = {}
